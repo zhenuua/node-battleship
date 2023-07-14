@@ -1,8 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
+import { WebSocketServer } from "ws";
+import { connectWSS } from '../ws_server/connectWSS';
 
-export const httpServer = http.createServer(function (req, res) {
+const httpServer = http.createServer(function (req, res) {
     const __dirname = path.resolve(path.dirname(''));
     const file_path = __dirname + (req.url === '/' ? '/front/index.html' : '/front' + req.url);
     fs.readFile(file_path, function (err, data) {
@@ -15,3 +17,9 @@ export const httpServer = http.createServer(function (req, res) {
         res.end(data);
     });
 });
+
+const wss = new WebSocketServer({ port: 3000 });
+wss.on("connection", connectWSS);
+
+
+export default httpServer;
