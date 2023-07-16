@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { WebSocket } from "ws";
+import { IShip } from "../../types";
 
 export class Player {
   name: string;
@@ -7,7 +8,7 @@ export class Player {
   id: string;
   error: boolean = false;
   errorText: string = '';
-  ships: [] = [];
+  ships: IShip[] = [];
   ws: WebSocket;
 
   constructor(name: string, password: string, ws: WebSocket) {
@@ -15,5 +16,10 @@ export class Player {
     this.password = password;
     this.id = crypto.randomUUID();
     this.ws = ws;
+  }
+
+  addShips(ship: IShip[]) {
+    this.ships = ship;
+    // this.ships.push(ship);
   }
 }

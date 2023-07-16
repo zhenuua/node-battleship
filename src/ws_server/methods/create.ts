@@ -8,10 +8,11 @@ import { Room } from "../modules/Room";
 import { sendWSResponse } from "../../utils";
 
 export const create = (ws: WebSocket, currentPlayer: Player, request: IFrame) => {
-  const room = new Room(currentPlayer);
+  const room = new Room();
+  room.addPlayer(currentPlayer);
   db.addRoom(room);
 
-  const game = new Game();
+  const game = new Game(room.id);
   db.addGame(game);
 
   sendWSResponse(

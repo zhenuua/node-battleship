@@ -8,17 +8,21 @@ import { Room } from "../modules/Room";
 import { sendWSResponse } from "../../utils";
 
 export const addUserToRoom = (ws: WebSocket, currentPlayer: Player, request: IFrame) => {
-
-  // const game = new Game();
-  // db.addGame(game);
-  // const room = new Room(currentPlayer);
-  // db.addRoom(room);
+  const data = JSON.parse(request.data);
+  db.addPlayerToRoom(data?.indexRoom, currentPlayer);
+  
   sendWSResponse(
     EVENTS.CREATE_GAME,
     {
-      idGame: 1,
+      idGame: data?.indexRoom,
       idPlayer: currentPlayer.id,
     },
     ws
+  )
+
+  sendWSResponse(
+    EVENTS.UPDATE_ROOM,
+    db.getRoomsForResp(),
+    ws,
   )
 }

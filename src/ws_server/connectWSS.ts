@@ -6,6 +6,7 @@ import { Player } from "./modules/Player";
 import { DB } from "../DB";
 import { create } from "./methods/create";
 import { addUserToRoom } from "./methods/addUserToRoom";
+import { addShips } from "./methods/addShips";
 
 export const db = new DB();
 
@@ -25,6 +26,9 @@ export const connectWSS = (ws: WebSocket) => {
 
       case EVENTS.ADD_USER_TO_ROOM:
         addUserToRoom(ws, currentPlayer, request)
+        break;
+      case EVENTS.ADD_SHIPS:
+        addShips(ws, currentPlayer, request)
         break;
       default:
         console.log(request);

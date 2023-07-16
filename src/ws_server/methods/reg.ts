@@ -23,15 +23,13 @@ export const reg = (ws: WebSocket, request: IFrame): Player => {
   const player = new Player(userName, userPassword, ws);
   db.addPlayer(player);
 
-
   if (db.rooms.length) {
     ws.send(JSON.stringify({
-      type: "update_room",
+      type: EVENTS.UPDATE_ROOM,
       data: db.getRoomsForResp(),
       id: 0,
     }))
   }
-
 
   return player;
 }

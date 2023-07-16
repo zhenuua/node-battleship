@@ -1,6 +1,6 @@
 export const EVENTS = {
   REG: 'reg',
-  UPDATE_ROOM: 'updateRoom',
+  UPDATE_ROOM: 'update_room',
   CREATE_ROOM: 'create_room',
   CREATE_GAME: 'create_game',
   ADD_SHIPS: 'add_ships',
