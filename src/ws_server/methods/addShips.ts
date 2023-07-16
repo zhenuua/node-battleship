@@ -7,17 +7,28 @@ import { sendWSResponse } from "../../utils";
 
 export const addShips = (ws: WebSocket, currentPlayer: Player, request: IFrame) => {
   const data = JSON.parse(request.data);
-  const playerId = data.indexPlayer;
-  const ships = data.ships;
-  const gameId = data.gameId;
+  const { ships, gameId: roomId, indexPlayer: playerId } = data;
 
   currentPlayer.addShips(ships);
-  db.addShips(gameId, playerId, ships);
-  if (db.isStartGame(gameId)) {
-    db.getRoomPlayers(gameId).forEach(player => {
+
+  const roomPlayers = db.getRoomPlayers(roomId)
+  const firstPlayer = roomPlayers[0];
+
+  db.addShips(roomId, playerId, ships);
+
+  if (db.isStartGame(roomId)) {
+    firstPlayer.changeTurn();
+    roomPlayers.forEach(player => {
       sendWSResponse(
         EVENTS.START_GAME,
         player.ships,
+        player.ws
+      )
+      sendWSResponse(
+        EVENTS.TURN,
+        {
+          currentPlayer: firstPlayer.id,
+        },
         player.ws
       )
     });

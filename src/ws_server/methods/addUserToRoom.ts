@@ -1,10 +1,8 @@
-import { RawData, WebSocket } from "ws";
+import { WebSocket } from "ws";
 import { EVENTS } from "../../constants";
 import { IFrame } from "../../types";
 import { Player } from "../modules/Player";
-import { Game } from "../modules/Game";
 import { db } from "../connectWSS";
-import { Room } from "../modules/Room";
 import { sendWSResponse } from "../../utils";
 
 export const addUserToRoom = (ws: WebSocket, currentPlayer: Player, request: IFrame) => {

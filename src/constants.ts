@@ -7,5 +7,6 @@ export const EVENTS = {
   ADD_USER_TO_ROOM: 'add_user_to_room',
   TURN: 'turn',
   ATTACK: 'attack',
+  RANDOM_ATTACK: 'randomAttack',
   START_GAME: 'start_game',
 }

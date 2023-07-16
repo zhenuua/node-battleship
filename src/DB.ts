@@ -1,5 +1,4 @@
 import { IShip } from "./types";
-import { Game } from "./ws_server/modules/Game";
 import { Player } from "./ws_server/modules/Player"
 import { Room } from "./ws_server/modules/Room";
 
@@ -7,7 +6,6 @@ import { Room } from "./ws_server/modules/Room";
 export class DB {
   players: Player[] = [];
   rooms: Room[] = [];
-  games: Game[] = [];
 
   addShips(gameId: string, playerId: string, ships: IShip[]) {
     this.rooms.map((room) => {
@@ -26,8 +24,6 @@ export class DB {
 
   getRoomPlayers(gameId: string): Player[] {
     const currentRoom = this.rooms.find((room) => room.id === gameId)
-    console.log(currentRoom?.players);
-
     return currentRoom
       ? currentRoom.players
       : [];
@@ -52,15 +48,7 @@ export class DB {
     })))
   }
 
-  addGame(game: Game) {
-    this.games.push(game);
-  }
-
   deleteRoom(roomId: string) {
     this.rooms.filter((room) => room.id !== roomId);
-  }
-
-  deleteGame(gameId: string) {
-    this.games.filter((game) => game.id !== gameId);
   }
 }

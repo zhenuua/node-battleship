@@ -1,4 +1,4 @@
-import { RawData, WebSocket } from "ws";
+import { WebSocket } from "ws";
 import { EVENTS } from "../../constants";
 import { IFrame } from "../../types";
 import { Player } from "../modules/Player";

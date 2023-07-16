@@ -9,6 +9,7 @@ export class Player {
   error: boolean = false;
   errorText: string = '';
   ships: IShip[] = [];
+  isTurn: boolean = false;
   ws: WebSocket;
 
   constructor(name: string, password: string, ws: WebSocket) {
@@ -18,8 +19,13 @@ export class Player {
     this.ws = ws;
   }
 
-  addShips(ship: IShip[]) {
-    this.ships = ship;
-    // this.ships.push(ship);
+  addShips(ships: IShip[]) {
+    this.ships = ships;
   }
+
+  changeTurn() {
+    this.isTurn = !this.isTurn
+  }
+
+
 }

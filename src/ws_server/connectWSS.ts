@@ -7,6 +7,7 @@ import { DB } from "../DB";
 import { create } from "./methods/create";
 import { addUserToRoom } from "./methods/addUserToRoom";
 import { addShips } from "./methods/addShips";
+import { attack } from "./methods/attack";
 
 export const db = new DB();
 
@@ -29,6 +30,12 @@ export const connectWSS = (ws: WebSocket) => {
         break;
       case EVENTS.ADD_SHIPS:
         addShips(ws, currentPlayer, request)
+        break;
+      case EVENTS.ATTACK:
+        attack(request)
+        break;
+      case EVENTS.RANDOM_ATTACK:
+        // attack(request, true)
         break;
       default:
         console.log(request);
