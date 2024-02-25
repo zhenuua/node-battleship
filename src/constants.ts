@@ -9,4 +9,12 @@ export const EVENTS = {
   ATTACK: 'attack',
   RANDOM_ATTACK: 'randomAttack',
   START_GAME: 'start_game',
+  FINISH_GAME: 'finish',
+  UPDATE_WINNERS: 'update_winners'
+}
+
+export const SHIP = {
+  KILLED: 'killed',
+  MISS: 'miss',
+  SHOT: 'shot',
 }

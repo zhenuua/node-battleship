@@ -10,9 +10,12 @@ import { addShips } from "./methods/addShips";
 import { attack } from "./methods/attack";
 
 export const db = new DB();
+export const connections: WebSocket[] = [];
 
 export const connectWSS = (ws: WebSocket) => {
   let currentPlayer: Player;
+  connections.push(ws);
+
   ws.on('error', console.error);
   ws.on('message', (data: RawData) => {
     const request = JSON.parse(data.toString()) as IFrame;
@@ -24,7 +27,6 @@ export const connectWSS = (ws: WebSocket) => {
       case EVENTS.CREATE_ROOM:
         create(ws, currentPlayer, request)
         break;
-
       case EVENTS.ADD_USER_TO_ROOM:
         addUserToRoom(ws, currentPlayer, request)
         break;
@@ -35,10 +37,17 @@ export const connectWSS = (ws: WebSocket) => {
         attack(request)
         break;
       case EVENTS.RANDOM_ATTACK:
-        // attack(request, true)
+        attack(request, true)
         break;
       default:
         console.log(request);
+    }
+  });
+  ws.on("close", () => {
+    console.log("WebSocket connection closed");
+    const index = connections.indexOf(ws);
+    if (index !== -1) {
+      connections.splice(index, 1);
     }
   });
 };

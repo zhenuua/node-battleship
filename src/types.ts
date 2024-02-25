@@ -4,7 +4,7 @@ export interface IFrame {
   id: number
 }
 
-interface IShipPosition {
+export interface IShipPosition {
   x: number,
   y: number,
 }
